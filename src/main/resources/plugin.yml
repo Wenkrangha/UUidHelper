@@ -1,0 +1,8 @@
+name: UUidHelper
+version: '1.0-SNAPSHOT'
+main: com.wenkrang.UuidHelper.UuidHelper
+api-version: '1.21'
+commands:
+  uh:
+    description: 帮助你完成Uuid的查询与迁移
+    usage: /uh
