@@ -51,23 +51,23 @@ public class PlayerJoin implements Listener {
                 String Uuid = yamlConfiguration.getString(event.getPlayer().getName());
                 getServer().getConsoleSender().sendMessage("[§9*§r] 检测到需要映射的玩家 " + event.getPlayer().getName());
                 String string = event.getPlayer().getUniqueId().toString();
-                getServer().getConsoleSender().sendMessage("[§9*§r] 正在将玩家映射到指定的Uuid ： " + string);
+                getServer().getConsoleSender().sendMessage("[§9*§r] 正在将玩家映射到指定的Uuid ： " + Uuid);
                 Player player = event.getPlayer();
                 CraftPlayer craftPlayer = (CraftPlayer) player;
                 GameProfile gameProfile = craftPlayer.getHandle().getGameProfile();
                 try {
                     // 创建新的Uuid
                     UUID newUuid = null;
-                    if (string != null) {
-                        newUuid = UUID.fromString(string);
+                    if (Uuid != null) {
+                        newUuid = UUID.fromString(Uuid);
                     }
 
                     Field idField = gameProfile.getClass().getDeclaredField("id");
                     idField.setAccessible(true);
                     idField.set(gameProfile, newUuid);
                     // 输出新旧Uuid供验证
-                    getServer().getConsoleSender().sendMessage("[§9*§r] 已将玩家从 " + player.getUniqueId() + " 映射至 " + string);
-                    event.getPlayer().sendMessage("[§9*§r] 已将你的Uuid从 " + player.getUniqueId() + " 映射至 " + string);
+                    getServer().getConsoleSender().sendMessage("[§9*§r] 已将玩家从 " + player.getUniqueId() + " 映射至 " + Uuid);
+
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -86,6 +86,7 @@ public class PlayerJoin implements Listener {
                             }
                             event.getPlayer().setLevel(Load.getInt("Level"));
                             event.getPlayer().setHealth(Load.getDouble("Health"));
+                            event.getPlayer().sendMessage("[§9*§r] 已将你的Uuid从 " + player.getUniqueId() + " 映射至 " + Uuid);
                         }catch (Exception e) {
                             e.printStackTrace();
                         }
